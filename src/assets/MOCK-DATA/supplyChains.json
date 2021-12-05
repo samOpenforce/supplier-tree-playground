@@ -1,0 +1,44 @@
+[
+  {
+    "id": "chain-001",
+    "facilityId": "1234356",
+    "products": [
+      {
+        "children": [
+          [{ "id": "001", "dimensions": {} }],
+          [
+            { "id": "002", "dimensions": {} },
+            { "id": "007", "dimensions": {} }
+          ],
+          [{ "id": "003", "dimensions": {} }]
+        ],
+        "id": "product-001"
+      },
+      {
+        "children": [[{ "id": "001", "dimensions": {} }], [{ "id": "002", "dimensions": {} }], [{ "id": "003", "dimensions": {} }]],
+        "id": "product-002"
+      }
+    ]
+  },
+  {
+    "id": "chain-002",
+    "facilityId": "facility-0009",
+    "products": [
+      {
+        "children": [
+          [{ "id": "003", "dimensions": {} }],
+          [
+            { "id": "004", "dimensions": {} },
+            { "id": "007", "dimensions": {} }
+          ],
+          [{ "id": "005", "dimensions": {} }],
+          [
+            { "id": "002", "dimensions": {} },
+            { "id": "001", "dimensions": {} }
+          ]
+        ],
+        "id": "product-00"
+      }
+    ]
+  }
+]

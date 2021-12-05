@@ -1,0 +1,47 @@
+.screen-wrapper {
+  position: relative;
+  display: flex;
+}
+
+canvas.connector-layer {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  // opacity: 0.2;
+  //background-color: yellow;
+}
+
+div.content {
+  // overflow-x: scroll;
+
+  //TODO move elements to own component
+  & div.facility-row {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    border-bottom: 1px solid #ededed;
+  }
+
+  & div.chain-step,
+  div.facility-step {
+    padding: 64px 64px;
+    border-left: 1px solid #ededed;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+div.product-chains-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+div.product-chain {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}

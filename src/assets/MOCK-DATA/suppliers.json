@@ -1,0 +1,30 @@
+{
+  "001": {
+    "name": "Supplier 001",
+    "category": "fibre"
+  },
+  "002": {
+    "name": "Supplier 002",
+    "category": "washing"
+  },
+  "003": {
+    "name": "Supplier 003",
+    "category": "manufacture"
+  },
+  "004": {
+    "name": "Supplier 004",
+    "category": "fibre"
+  },
+  "005": {
+    "name": "Supplier 005",
+    "category": "washing"
+  },
+  "006": {
+    "name": "Supplier 006",
+    "category": "drying"
+  },
+  "007": {
+    "name": "Supplier 007",
+    "category": "packing"
+  }
+}
