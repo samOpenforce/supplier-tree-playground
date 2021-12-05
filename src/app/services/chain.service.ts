@@ -72,6 +72,13 @@ export class ChainService implements OnInit {
     }
   }
 
+  updateProductDimensions(chainIndex: number, productIndex: number, dimensions: DOMRect): void {
+    const supplyChains = this.$allSupplyChains;
+    if (supplyChains && supplyChains[chainIndex].facility) {
+      supplyChains[chainIndex].products[productIndex].dimensions = dimensions;
+    }
+  }
+
   setSelectedFacility(chainId: string): void {
     console.log('chain service sets facility to:', chainId);
     if (this.$selectedFacility === chainId) {
@@ -81,14 +88,22 @@ export class ChainService implements OnInit {
     } else {
       this.$selectedFacility = chainId;
       this.selectedFacilitySubject.next(chainId);
+      this.$selectedProduct = null;
+      this.selectedProductSubject.next(null);
     }
   }
 
-  setSelectedProductChain(chainId: string, productId: string): void {
+  setSelectedProduct(productId: string): void {
     console.log('chain service sets product to:', productId);
-    this.$selectedFacility = chainId;
-    this.selectedFacilitySubject.next(chainId);
-    this.$selectedProduct = productId;
-    this.selectedFacilitySubject.next(productId);
+    if (this.$selectedProduct === productId) {
+      // remove selection
+      this.$selectedProduct = null;
+      this.selectedProductSubject.next(null);
+    } else {
+      this.$selectedProduct = productId;
+      this.selectedProductSubject.next(productId);
+      this.$selectedFacility = null;
+      this.selectedFacilitySubject.next(null);
+    }
   }
 }
