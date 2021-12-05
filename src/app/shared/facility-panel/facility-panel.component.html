@@ -1,3 +1,6 @@
-<div class="panel">
-  <pre>{{ chainData | json }}</pre>
+<div class="panel facility" #facilityPanel (click)="setSelectedFacility()">
+  <div>{{ facility.id }}</div>
+  <div class="facility-products">
+    <app-product-panel *ngFor="let product of chainData.products" [product]="product"></app-product-panel>
+  </div>
 </div>

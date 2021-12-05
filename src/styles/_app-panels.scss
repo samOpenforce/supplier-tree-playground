@@ -4,15 +4,25 @@ div.panel {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 200px;
-  width: 328px;
-  border-radius: 8px;
-  background-color: $orange;
-  color: $black-1;
-
-  &.active-chain-element {
-    border: 3px solid $blue;
-  }
   align-items: center;
   justify-content: center;
+
+  border-radius: 8px;
+
+  &.facility {
+    background-color: $blue;
+    color: $white;
+    min-height: 200px;
+    width: 328px;
+  }
+  &.product {
+    background-color: $green;
+    color: $white;
+  }
+  &.supplier {
+    background-color: $orange;
+    color: $black-1;
+    min-height: 200px;
+    width: 328px;
+  }
 }

@@ -1,5 +1,5 @@
 <div class="screen-wrapper">
-  <div class="content" (resized)="contentResized($event)">
+  <div *ngIf="supplyChains" class="content" (resized)="contentResized($event)">
     <div
       class="facility-row"
       cdkDropList
@@ -7,16 +7,17 @@
       (cdkDropListDropped)="drop($event)"
     >
       <div class="facility-step">
-        <app-facility-panel [chainData]="supplyChain"> </app-facility-panel>
+        <app-facility-panel [chainData]="supplyChain" [chainIndex]="chainIndex"> </app-facility-panel>
       </div>
 
       <div class="product-chains-container">
-        <div *ngFor="let product of supplyChain.products; let productIndex = index" class="product-chain">
+        <div class="product-chain" *ngFor="let product of supplyChain.products; let productIndex = index">
           <div class="chain-step" *ngFor="let child of product.children; let childIndex = index">
             <app-supplier-panel
               *ngFor="let sibling of child; let siblingIndex = index"
-              [chainData]="supplyChain"
-              [productData]="product"
+              [facilityId]="supplyChain?.facility?.id || ''"
+              [productId]="product?.id || ''"
+              [child]="product.children[childIndex + 1]"
               [indexes]="{ chainIndex, productIndex, childIndex, siblingIndex}"
             ></app-supplier-panel>
           </div>

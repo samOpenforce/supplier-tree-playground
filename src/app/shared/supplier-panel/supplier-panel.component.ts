@@ -1,5 +1,6 @@
 import { AfterContentChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { SupplierModel, SupplyChainElement } from '../../app.component';
+import { SupplyChainElement } from '../../models/SupplyChain';
+
 import { CanvasService } from '../../services/canvas.service';
 import { ChainService } from '../../services/chain.service';
 
@@ -16,16 +17,38 @@ export interface ElementIndexes {
 })
 export class SupplierPanelComponent implements OnInit, AfterContentChecked {
   @ViewChild('supplierPanel', { static: false }) private supplierPanel!: ElementRef;
-
-  @Input() chainData?: any; // TODO
-  @Input() productData?: any; // TODO
+  @Input() facilityId!: string;
+  @Input() productId!: string;
+  @Input() child!: Array<SupplyChainElement> | undefined;
   @Input() indexes!: ElementIndexes;
 
   dimensions!: DOMRect;
-  child!: Array<SupplyChainElement> | null;
+  productActive: boolean = false;
+  facilityActive: boolean = false;
   constructor(private canvasService: CanvasService, private chainService: ChainService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('supplier init');
+    this.chainService.selectedProduct.subscribe(
+      (result) => {
+        // console.log('product selected result', result);
+        result === this.productId ? (this.productActive = true) : (this.productActive = false);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    this.chainService.selectedFacility.subscribe(
+      (result) => {
+        //console.log('facility selected result', result);
+        result === this.facilityId ? (this.facilityActive = true) : (this.facilityActive = false);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
   ngAfterContentChecked() {
     this.dimensions = this.supplierPanel?.nativeElement.getBoundingClientRect();
     this.chainService.updateDimensions(
@@ -35,19 +58,22 @@ export class SupplierPanelComponent implements OnInit, AfterContentChecked {
       this.indexes.siblingIndex,
       this.dimensions
     );
-    this.child = this.chainService.getChild(this.indexes.chainIndex, this.indexes.productIndex, this.indexes.childIndex);
     this.drawConnectors();
   }
 
   private drawConnectors(): void {
     // child can have multiple siblings
     if (this.dimensions && this.child) {
-      this.child?.forEach((sibling, index) => {
+      this.child?.forEach((sibling) => {
         let childSiblingDimensions = sibling.dimensions;
         if (childSiblingDimensions) {
           this.canvasService.drawConnector(this.dimensions, childSiblingDimensions);
         }
       });
     }
+  }
+
+  clearCanvasTest(): void {
+    this.canvasService.clearCanvas();
   }
 }

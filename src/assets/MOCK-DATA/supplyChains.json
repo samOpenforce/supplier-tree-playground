@@ -1,7 +1,10 @@
 [
   {
     "id": "chain-001",
-    "facilityId": "1234356",
+    "facility": {
+      "id": "facility-0117",
+      "dimensions": {}
+    },
     "products": [
       {
         "children": [
@@ -12,17 +15,20 @@
           ],
           [{ "id": "003", "dimensions": {} }]
         ],
-        "id": "product-001"
+        "id": "product-DDEE-9966"
       },
       {
         "children": [[{ "id": "001", "dimensions": {} }], [{ "id": "002", "dimensions": {} }], [{ "id": "003", "dimensions": {} }]],
-        "id": "product-002"
+        "id": "product-AABB-1122"
       }
     ]
   },
   {
     "id": "chain-002",
-    "facilityId": "facility-0009",
+    "facility": {
+      "id": "facility-0292",
+      "dimensions": {}
+    },
     "products": [
       {
         "children": [
@@ -37,7 +43,7 @@
             { "id": "001", "dimensions": {} }
           ]
         ],
-        "id": "product-00"
+        "id": "product-8887678"
       }
     ]
   }

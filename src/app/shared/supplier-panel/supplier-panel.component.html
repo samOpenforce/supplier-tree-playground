@@ -1,6 +1,3 @@
-<div class="panel" #supplierPanel>
-  <span class="mat-subheading-1">{{ chainData.id}} </span>
-  <span class="mat-subheading-1">{{ productData.id}} </span>
-  <!--   <span class="mat-subheading-1">{{ supplierData?.name}} </span> -->
+<div class="panel supplier" #supplierPanel [class.active]="productActive || facilityActive">
   <pre>{{ dimensions | json }}</pre>
 </div>

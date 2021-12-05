@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { SupplierModel, SupplyChainElement, SupplyChainModel } from '../app.component';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { SupplierModel } from '../models/Supplier';
+import { SupplyChainModel } from '../models/SupplyChain';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,16 @@ export class ChainService implements OnInit {
   private allSuppliersSubject = new Subject<Map<string, SupplierModel>>();
   public allSuppliers: Observable<Map<string, SupplierModel>> = this.allSuppliersSubject;
   // SELECTION
-  selectedChain!: SupplyChainModel | null;
+  // Facility
+  private selectedFacilitySubject = new BehaviorSubject<string | null>(null);
+  public selectedFacility: Observable<string | null> = this.selectedFacilitySubject;
+  private $selectedFacility?: string | null;
+  // Product
+  private selectedProductSubject = new BehaviorSubject<string | null>(null);
+  public selectedProduct: Observable<string | null> = this.selectedProductSubject;
+  private $selectedProduct?: string | null;
 
   // CO_ORDINATES
-
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -58,12 +65,30 @@ export class ChainService implements OnInit {
     }
   }
 
-  getChild(chainIndex: number, productIndex: number, childIndex: number): Array<SupplyChainElement> | null {
+  updateFacilityDimensions(chainIndex: number, dimensions: DOMRect): void {
     const supplyChains = this.$allSupplyChains;
-    if (supplyChains) {
-      return supplyChains[chainIndex].products[productIndex].children[childIndex + 1];
-    } else {
-      return null;
+    if (supplyChains && supplyChains[chainIndex].facility) {
+      supplyChains[chainIndex].facility.dimensions = dimensions;
     }
+  }
+
+  setSelectedFacility(chainId: string): void {
+    console.log('chain service sets facility to:', chainId);
+    if (this.$selectedFacility === chainId) {
+      // remove selection
+      this.$selectedFacility = null;
+      this.selectedFacilitySubject.next(null);
+    } else {
+      this.$selectedFacility = chainId;
+      this.selectedFacilitySubject.next(chainId);
+    }
+  }
+
+  setSelectedProductChain(chainId: string, productId: string): void {
+    console.log('chain service sets product to:', productId);
+    this.$selectedFacility = chainId;
+    this.selectedFacilitySubject.next(chainId);
+    this.$selectedProduct = productId;
+    this.selectedFacilitySubject.next(productId);
   }
 }
