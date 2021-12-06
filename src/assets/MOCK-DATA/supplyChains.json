@@ -8,17 +8,21 @@
     "products": [
       {
         "children": [
-          [{ "id": "001", "dimensions": {} }],
+          [{ "id": "001", "dimensions": {}, "supplier": "001" }],
           [
-            { "id": "002", "dimensions": {} },
-            { "id": "007", "dimensions": {} }
+            { "id": "002", "dimensions": {}, "supplier": "002" },
+            { "id": "007", "dimensions": {}, "supplier": "003" }
           ],
-          [{ "id": "003", "dimensions": {} }]
+          [{ "id": "003", "dimensions": {}, "supplier": "004" }]
         ],
         "id": "product-DDEE-9966"
       },
       {
-        "children": [[{ "id": "001", "dimensions": {} }], [{ "id": "002", "dimensions": {} }], [{ "id": "003", "dimensions": {} }]],
+        "children": [
+          [{ "id": "001", "dimensions": {}, "supplier": "003" }],
+          [{ "id": "002", "dimensions": {}, "supplier": "005" }],
+          [{ "id": "003", "dimensions": {}, "supplier": "007" }]
+        ],
         "id": "product-AABB-1122"
       }
     ]
@@ -27,20 +31,21 @@
     "id": "chain-002",
     "facility": {
       "id": "facility-0292",
-      "dimensions": {}
+      "dimensions": {},
+      "supplier": "001"
     },
     "products": [
       {
         "children": [
-          [{ "id": "003", "dimensions": {} }],
+          [{ "id": "003", "dimensions": {}, "supplier": "001" }],
           [
-            { "id": "004", "dimensions": {} },
-            { "id": "007", "dimensions": {} }
+            { "id": "004", "dimensions": {}, "supplier": "003" },
+            { "id": "007", "dimensions": {}, "supplier": "004" }
           ],
-          [{ "id": "005", "dimensions": {} }],
+          [{ "id": "005", "dimensions": {}, "supplier": "007" }],
           [
-            { "id": "002", "dimensions": {} },
-            { "id": "001", "dimensions": {} }
+            { "id": "002", "dimensions": {}, "supplier": "002" },
+            { "id": "001", "dimensions": {}, "supplier": "003" }
           ]
         ],
         "id": "product-8887678"

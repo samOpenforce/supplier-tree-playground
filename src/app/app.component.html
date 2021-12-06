@@ -14,10 +14,12 @@
         <div class="product-chain" *ngFor="let product of supplyChain.products; let productIndex = index">
           <div class="chain-step" *ngFor="let child of product.children; let childIndex = index">
             <app-supplier-panel
+              cdkDrag
               *ngFor="let sibling of child; let siblingIndex = index"
-              [facilityId]="supplyChain?.facility?.id || ''"
-              [productId]="product?.id || ''"
+              [facility]="supplyChain.facility.id"
+              [product]="product.id"
               [child]="product.children[childIndex + 1]"
+              [supplier]="usedSuppliers.get(product.children[childIndex][siblingIndex].supplier)"
               [indexes]="{ chainIndex, productIndex, childIndex, siblingIndex}"
             ></app-supplier-panel>
           </div>

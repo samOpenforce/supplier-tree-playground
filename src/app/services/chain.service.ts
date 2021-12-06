@@ -80,30 +80,26 @@ export class ChainService implements OnInit {
   }
 
   setSelectedFacility(chainId: string): void {
-    console.log('chain service sets facility to:', chainId);
+    this.$selectedProduct = null;
+    this.selectedProductSubject.next(null);
     if (this.$selectedFacility === chainId) {
-      // remove selection
       this.$selectedFacility = null;
       this.selectedFacilitySubject.next(null);
     } else {
       this.$selectedFacility = chainId;
       this.selectedFacilitySubject.next(chainId);
-      this.$selectedProduct = null;
-      this.selectedProductSubject.next(null);
     }
   }
 
   setSelectedProduct(productId: string): void {
-    console.log('chain service sets product to:', productId);
+    this.$selectedFacility = null;
+    this.selectedFacilitySubject.next(null);
     if (this.$selectedProduct === productId) {
-      // remove selection
       this.$selectedProduct = null;
       this.selectedProductSubject.next(null);
     } else {
       this.$selectedProduct = productId;
       this.selectedProductSubject.next(productId);
-      this.$selectedFacility = null;
-      this.selectedFacilitySubject.next(null);
     }
   }
 }

@@ -8,21 +8,41 @@ div.panel {
   justify-content: center;
 
   border-radius: 8px;
+  font-size: 24px;
+  font-weight: 700;
 
   &.facility {
-    background-color: $blue;
-    color: $white;
+    background-color: $white;
+    border: 8px solid $green;
     min-height: 200px;
     width: 328px;
+    &.active {
+      background-color: $blue;
+      color: $white;
+      & div.panel.product {
+        border: 8px solid white;
+        min-height: 200px;
+      }
+    }
   }
   &.product {
-    background-color: $green;
-    color: $white;
+    border: 8px solid $blue;
+    color: $black-1;
+    min-height: 200px;
+    &.active {
+      background-color: $blue;
+      color: $white;
+    }
   }
   &.supplier {
-    background-color: $orange;
+    border: 8px solid $orange;
     color: $black-1;
     min-height: 200px;
     width: 328px;
+    &.active {
+      border: 8px solid $blue;
+      background-color: $blue;
+      color: $white;
+    }
   }
 }

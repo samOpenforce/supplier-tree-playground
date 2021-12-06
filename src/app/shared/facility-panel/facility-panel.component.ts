@@ -20,10 +20,21 @@ export class FacilityPanelComponent implements OnInit {
   facility!: FacilityModel;
   dimensions!: DOMRect;
 
+  facilityActive: boolean = false;
   ngOnInit(): void {
     this.facility = this.chainData.facility;
     console.log('=== FACILITY CREATED ===', this.facility);
     console.log('=== FACILITY CHAIN ===', this.chainData);
+
+    this.chainService.selectedFacility.subscribe(
+      (result) => {
+        //console.log('facility selected result', result);
+        result === this.facility.id ? (this.facilityActive = true) : (this.facilityActive = false);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   ngAfterContentChecked() {
@@ -32,13 +43,9 @@ export class FacilityPanelComponent implements OnInit {
     //this.drawConnectors();
   }
   setSelectedFacility(): void {
-    console.log('=== set facility active ===', this.facility.id);
-
-    console.log('=== select all product chains for facility ===');
     this.chainService.setSelectedFacility(this.facility.id);
   }
   selectProductSupplyChain(productIndex: any): void {
-    console.log('=== select single product chain for facility ===');
     this.appService.setSelectedProductChain(this.facility.id, productIndex);
   }
 }

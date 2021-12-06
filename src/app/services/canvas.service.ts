@@ -1,3 +1,4 @@
+import { NumberFormatStyle } from '@angular/common';
 import { ElementRef, Injectable } from '@angular/core';
 
 @Injectable({
@@ -38,16 +39,12 @@ The big idea here would be to create an array of connectors {id}
   };
 
   drawConnector(parent: DOMRect, child: DOMRect): void {
-    /*  console.log(parent);
-    console.log(child);
-    console.log(document.body.scrollLeft);
-    console.log(window.pageXOffset); */
-    this.ctx?.strokeStyle === '#1976d2';
     if (this.ctx) {
-      let start = { x: parent.right + window.pageXOffset, y: parent.top + window.pageYOffset + 48 }; // parent top
-      let cp1 = { x: child.left + window.pageXOffset, y: parent.top + window.pageYOffset + 48 }; // inline with start and end
-      let cp2 = { x: parent.right + window.pageXOffset, y: child.bottom + window.pageYOffset }; // inline with start and end
-      let end = { x: child.left + window.pageXOffset, y: child.bottom + window.pageYOffset }; // child bottom
+      this.ctx.strokeStyle = '#1976d2';
+      let start = { x: Math.round(parent.right + window.pageXOffset), y: Math.round(parent.top + this.getTopMid(parent.height)) }; // parent top
+      let cp1 = { x: child.left + window.pageXOffset - 64, y: parent.top + window.pageYOffset + 64 }; // inline with start and end
+      let cp2 = { x: parent.right + window.pageXOffset + 64, y: child.bottom + window.pageYOffset - 64 }; // inline with start and end
+      let end = { x: Math.round(child.left + window.pageXOffset), y: Math.round(child.bottom - this.getTopMid(child.height)) }; // child bottom
 
       // Draw cubic Bézier curve
       this.ctx.lineWidth = 4;
@@ -69,5 +66,18 @@ The big idea here would be to create an array of connectors {id}
       this.ctx.arc(cp2.x, cp2.y, 5, 0, 2 * Math.PI); // Control point two
       this.ctx.fill(); */
     }
+  }
+
+  getTopMid(value: number): number {
+    return value / 2 / 2;
+  }
+
+  getControlPointMid(parent: number, child: number): number {
+    const total = child - parent;
+    return parent + total;
+  }
+
+  stripDecimals(value: number): number {
+    return 0;
   }
 }

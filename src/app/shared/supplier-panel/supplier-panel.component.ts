@@ -1,4 +1,5 @@
 import { AfterContentChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { SupplierModel } from '../../models/Supplier';
 import { SupplyChainElement } from '../../models/SupplyChain';
 
 import { CanvasService } from '../../services/canvas.service';
@@ -17,22 +18,23 @@ export interface ElementIndexes {
 })
 export class SupplierPanelComponent implements OnInit, AfterContentChecked {
   @ViewChild('supplierPanel', { static: false }) private supplierPanel!: ElementRef;
-  @Input() facilityId!: string;
-  @Input() productId!: string;
+  @Input() facility!: string;
+  @Input() product!: string;
+  @Input() supplier!: SupplierModel | undefined;
   @Input() child!: Array<SupplyChainElement> | undefined;
   @Input() indexes!: ElementIndexes;
 
   dimensions!: DOMRect;
+
   productActive: boolean = false;
   facilityActive: boolean = false;
   constructor(private canvasService: CanvasService, private chainService: ChainService) {}
 
   ngOnInit(): void {
-    console.log('supplier init');
     this.chainService.selectedProduct.subscribe(
       (result) => {
         // console.log('product selected result', result);
-        result === this.productId ? (this.productActive = true) : (this.productActive = false);
+        result === this.product ? (this.productActive = true) : (this.productActive = false);
       },
       (error) => {
         console.error(error);
@@ -42,7 +44,7 @@ export class SupplierPanelComponent implements OnInit, AfterContentChecked {
     this.chainService.selectedFacility.subscribe(
       (result) => {
         //console.log('facility selected result', result);
-        result === this.facilityId ? (this.facilityActive = true) : (this.facilityActive = false);
+        result === this.facility ? (this.facilityActive = true) : (this.facilityActive = false);
       },
       (error) => {
         console.error(error);

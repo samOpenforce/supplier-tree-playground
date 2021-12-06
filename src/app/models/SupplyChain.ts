@@ -12,5 +12,6 @@ export interface SupplyChainModel {
 
 export interface SupplyChainElement {
   id: string;
+  supplier: string;
   dimensions: DOMRect;
 }

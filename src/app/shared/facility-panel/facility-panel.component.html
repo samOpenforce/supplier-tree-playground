@@ -1,11 +1,12 @@
-<div class="panel facility" #facilityPanel (click)="setSelectedFacility()">
-  <div>{{ facility.id }}</div>
-  <div class="facility-products mt-32">
+<div class="panel facility" #facilityPanel (click)="setSelectedFacility()" [class.active]="facilityActive">
+  <div class="mt-32 mb-32">{{ facility.id }}</div>
+  <div class="facility-products mt-64">
     <app-product-panel
       *ngFor="let product of chainData.products; let productIndex = index"
       [product]="product"
       [productIndex]="productIndex"
       [chainIndex]="chainIndex"
+      [facility]="facility"
       class="mt-16"
     ></app-product-panel>
   </div>
