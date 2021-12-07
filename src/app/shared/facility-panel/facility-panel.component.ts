@@ -5,7 +5,8 @@ import { SupplyChainModel } from '../../models/SupplyChain';
 import { AppService } from '../../services/app.service';
 import { CanvasService } from '../../services/canvas.service';
 import { ChainService } from '../../services/chain.service';
-
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+@UntilDestroy()
 @Component({
   selector: 'app-facility-panel',
   templateUrl: './facility-panel.component.html',
@@ -23,12 +24,9 @@ export class FacilityPanelComponent implements OnInit {
   facilityActive: boolean = false;
   ngOnInit(): void {
     this.facility = this.chainData.facility;
-    console.log('=== FACILITY CREATED ===', this.facility);
-    console.log('=== FACILITY CHAIN ===', this.chainData);
 
-    this.chainService.selectedFacility.subscribe(
+    this.chainService.selectedFacility.pipe(untilDestroyed(this)).subscribe(
       (result) => {
-        //console.log('facility selected result', result);
         result === this.facility.id ? (this.facilityActive = true) : (this.facilityActive = false);
       },
       (error) => {
@@ -44,8 +42,5 @@ export class FacilityPanelComponent implements OnInit {
   }
   setSelectedFacility(): void {
     this.chainService.setSelectedFacility(this.facility.id);
-  }
-  selectProductSupplyChain(productIndex: any): void {
-    this.appService.setSelectedProductChain(this.facility.id, productIndex);
   }
 }

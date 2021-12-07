@@ -4,7 +4,8 @@ import { ProductModel } from '../../models/Product';
 import { SupplyChainElement } from '../../models/SupplyChain';
 import { CanvasService } from '../../services/canvas.service';
 import { ChainService } from '../../services/chain.service';
-
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+@UntilDestroy()
 @Component({
   selector: 'app-product-panel',
   templateUrl: './product-panel.component.html',
@@ -26,9 +27,8 @@ export class ProductPanelComponent implements OnInit, AfterContentChecked {
 
   ngOnInit(): void {
     this.child = this.product.children[0];
-    this.chainService.selectedProduct.subscribe(
+    this.chainService.selectedProduct.pipe(untilDestroyed(this)).subscribe(
       (result) => {
-        // console.log('product selected result', result);
         result === this.product.id ? (this.productActive = true) : (this.productActive = false);
       },
       (error) => {
@@ -36,9 +36,8 @@ export class ProductPanelComponent implements OnInit, AfterContentChecked {
       }
     );
 
-    this.chainService.selectedFacility.subscribe(
+    this.chainService.selectedFacility.pipe(untilDestroyed(this)).subscribe(
       (result) => {
-        //console.log('facility selected result', result);
         result === this.facility.id ? (this.facilityActive = true) : (this.facilityActive = false);
       },
       (error) => {

@@ -4,6 +4,7 @@ import { SupplyChainElement } from '../../models/SupplyChain';
 
 import { CanvasService } from '../../services/canvas.service';
 import { ChainService } from '../../services/chain.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 export interface ElementIndexes {
   chainIndex: number;
@@ -11,6 +12,8 @@ export interface ElementIndexes {
   childIndex: number;
   siblingIndex: number;
 }
+
+@UntilDestroy()
 @Component({
   selector: 'app-supplier-panel',
   templateUrl: './supplier-panel.component.html',
@@ -31,7 +34,7 @@ export class SupplierPanelComponent implements OnInit, AfterContentChecked {
   constructor(private canvasService: CanvasService, private chainService: ChainService) {}
 
   ngOnInit(): void {
-    this.chainService.selectedProduct.subscribe(
+    this.chainService.selectedProduct.pipe(untilDestroyed(this)).subscribe(
       (result) => {
         // console.log('product selected result', result);
         result === this.product ? (this.productActive = true) : (this.productActive = false);
@@ -41,7 +44,7 @@ export class SupplierPanelComponent implements OnInit, AfterContentChecked {
       }
     );
 
-    this.chainService.selectedFacility.subscribe(
+    this.chainService.selectedFacility.pipe(untilDestroyed(this)).subscribe(
       (result) => {
         //console.log('facility selected result', result);
         result === this.facility ? (this.facilityActive = true) : (this.facilityActive = false);
